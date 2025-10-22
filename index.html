@@ -1,0 +1,654 @@
+Aqui está a aplicação web em um arquivo HTML único, formatada com a paleta "ENEC" e contendo o texto do documento fornecido.
+
+Para visualizar, copie este código, cole-o em um novo arquivo de texto, salve-o com a extensão `.html` (por exemplo, `guia_tutores.html`) e abra-o em seu navegador web.
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia para Tutores - Atividade Síncrona 5</title>
+    <style>
+        /* * Paleta de Cores: ENEC
+         * --cor-fundo: #F9F9F9;
+         * --cor-texto: #434344;
+         * --cor-primaria: #1E40FB; (Azul)
+         * --cor-secundaria: #FC0019; (Vermelho)
+         * --cor-terciaria: #FECF2F; (Amarelo)
+         * --cor-sucesso: #1FD025; (Verde)
+         * --cor-branca: #FFFFFF;
+        */
+
+        :root {
+            --cor-fundo: #F9F9F9;
+            --cor-texto: #434344;
+            --cor-primaria: #1E40FB;
+            --cor-secundaria: #FC0019;
+            --cor-terciaria: #FECF2F;
+            --cor-branca: #FFFFFF;
+            --cor-sombra: rgba(67, 67, 68, 0.1);
+            --header-altura: 70px;
+        }
+
+        /* --- Reset Básico e Configurações Globais --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.7;
+            padding-top: var(--header-altura);
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Cabeçalho e Navegação --- */
+        header.cabecalho-principal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-altura);
+            background-color: var(--cor-branca);
+            box-shadow: 0 2px 10px var(--cor-sombra);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav.navegacao-principal {
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        nav.navegacao-principal ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            padding: 0 10px;
+        }
+
+        nav.navegacao-principal li {
+            margin: 0 8px;
+        }
+
+        nav.navegacao-principal a {
+            display: block;
+            padding: 10px 12px;
+            text-decoration: none;
+            color: var(--cor-texto);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            position: relative;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        nav.navegacao-principal a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background-color: var(--cor-primaria);
+            transition: width 0.3s ease;
+        }
+
+        nav.navegacao-principal a:hover,
+        nav.navegacao-principal a.active {
+            color: var(--cor-primaria);
+        }
+
+        nav.navegacao-principal a.active::after {
+            width: 70%;
+        }
+
+        /* --- Conteúdo Principal e Seções --- */
+        main {
+            display: block;
+        }
+
+        section.secao-conteudo {
+            padding: 60px 0;
+            border-bottom: 1px solid #eee;
+            /* Animação de entrada */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        /* Classe adicionada via JS */
+        section.secao-conteudo.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section.secao-conteudo:nth-child(even) {
+            background-color: var(--cor-branca);
+        }
+
+        section.secao-conteudo:last-of-type {
+            border-bottom: none;
+        }
+
+        /* --- Elementos de Tipografia --- */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--cor-texto);
+            line-height: 1.3;
+        }
+
+        h1 { /* Título principal da página (interno) */
+            font-size: 2.5rem;
+            color: var(--cor-primaria);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        h2 { /* Títulos das Seções */
+            font-size: 2rem;
+            color: var(--cor-primaria);
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--cor-terciaria);
+            display: inline-block;
+        }
+
+        h3 { /* Subtítulos */
+            font-size: 1.5rem;
+            color: var(--cor-secundaria);
+            margin-top: 30px;
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 25px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        b, strong {
+            color: var(--cor-secundaria);
+            font-weight: 700;
+        }
+
+        blockquote {
+            font-family: Georgia, serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            text-align: center;
+            padding: 20px 40px;
+            margin: 30px 0;
+            border-left: 5px solid var(--cor-terciaria);
+            background-color: var(--cor-branca);
+            color: #555;
+            box-shadow: 0 2px 5px var(--cor-sombra);
+        }
+
+        /* --- Estilização de Tabelas --- */
+        .tabela-wrapper {
+            overflow-x: auto;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--cor-sombra);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--cor-branca);
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: var(--cor-primaria);
+            color: var(--cor-branca);
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--cor-fundo);
+        }
+
+        tr:hover {
+            background-color: #e9efff; /* Azul claro no hover */
+            transition: background-color 0.2s ease;
+        }
+
+        /* --- Rodapé --- */
+        footer.rodape-principal {
+            background-color: var(--cor-texto);
+            color: #aaa;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        footer.rodape-principal p {
+            margin: 0;
+            color: #ccc;
+        }
+
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            :root {
+                --header-altura: 60px;
+            }
+            
+            body {
+                padding-top: var(--header-altura);
+                font-size: 15px;
+            }
+
+            nav.navegacao-principal {
+                justify-content: flex-start;
+            }
+
+            nav.navegacao-principal ul {
+                justify-content: flex-start;
+                padding: 0 10px;
+            }
+            
+            nav.navegacao-principal li {
+                margin: 0 4px;
+            }
+
+            nav.navegacao-principal a {
+                padding: 8px 10px;
+                font-size: 0.85rem;
+            }
+
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.3rem; }
+            
+            p, ul, ol { font-size: 1rem; }
+            
+            blockquote { padding: 15px 20px; font-size: 1.15rem; }
+            
+            th, td { padding: 10px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="cabecalho-principal">
+        <nav class="navegacao-principal container">
+            <ul>
+                <li><a href="#apresentacao" class="nav-link active">Apresentação</a></li>
+                <li><a href="#teoria" class="nav-link">Teoria</a></li>
+                <li><a href="#tutor" class="nav-link">O Tutor</a></li>
+                <li><a href="#metodologia" class="nav-link">Metodologia</a></li>
+                <li><a href="#dinamica" class="nav-link">Dinâmica</a></li>
+                <li><a href="#checkout" class="nav-link">Checkout</a></li>
+                <li><a href="#conclusao" class="nav-link">Conclusão</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="apresentacao" class="secao-conteudo">
+            <div class="container">
+                <h1>Guia para Tutores</h1>
+                <p style="text-align: center; font-size: 1.5rem; color: var(--cor-primaria); margin-bottom: 40px;">Atividade Síncrona 5: Recursos Educacionais Digitais</p>
+
+                <h2>Apresentação do Ebook</h2>
+                <p>Este material tem como objetivo <b>preparar tutores</b> para conduzir a Atividade Síncrona da <b>Disciplina 5 – Recursos Educacionais Digitais (REDs)</b>. Ele foi elaborado com base nas orientações da professora <b>Juciane Rocha</b>, doutoranda em Tecnologias da Inteligência e Design Digital (PUC-SP) e professora convidada da <b>UFMS</b>.</p>
+                <p>O ebook busca <b>explorar os fundamentos teóricos e práticos</b> da metodologia apresentada, explicando cada etapa com linguagem acessível e contextualizada. Além dos textos explicativos, há <b>tabelas e quadros de apoio</b> para facilitar a compreensão e a aplicação durante o acompanhamento dos cursistas.</p>
+
+                <h3>1. Contextualização Geral da Atividade Síncrona</h3>
+                <p>A Atividade Síncrona 5 faz parte da jornada de construção do <b>Plano de Educação Digital e Inovação Pedagógica</b>. Essa jornada ocorre ao longo de várias disciplinas, e cada encontro síncrono contribui com diagnósticos e informações que alimentam esse plano.</p>
+                <p>O tutor atua como <b>facilitador</b> do processo, estimulando a <b>participação colaborativa</b> dos cursistas, mediando discussões e assegurando que todos compreendam o objetivo e os próximos passos.</p>
+
+                <h4>Objetivos da Atividade Síncrona 5</h4>
+                <ul>
+                    <li>Promover a <b>exploração de uma metodologia</b> para seleção, disponibilização e implementação de Recursos Educacionais Digitais (REDs).</li>
+                    <li>Compreender o conceito ampliado de RED, abrangendo recursos <b>pedagógicos, administrativos e tecnológicos</b>.</li>
+                    <li>Estimular a <b>reflexão sobre as demandas locais</b> das secretarias de educação.</li>
+                    <li>Apresentar <b>ferramentas de curadoria e avaliação</b> de REDs.</li>
+                </ul>
+                <p><b>Tempo estimado: 120 minutos</b></p>
+                <p><b>Público-alvo: Tutores da especialização e cursistas vinculados às Secretarias de Educação municipais.</b></p>
+            </div>
+        </section>
+
+        <section id="teoria" class="secao-conteudo">
+            <div class="container">
+                <h2>2. Fundamentação Teórica: O que são REDs</h2>
+                <p>Os <b>Recursos Educacionais Digitais (REDs)</b> são materiais, ferramentas ou plataformas utilizadas para <b>potencializar os processos educativos</b>. Eles podem apoiar atividades <b>de ensino, aprendizagem, gestão pedagógica ou administrativa</b>.</p>
+                <p>A metodologia usada foi criada em 2022 no âmbito do <b>Centro de Inovação para a Educação Brasileira (CIEB)</b> e propõe uma <b>abordagem institucional</b> de seleção e implementação de REDs.</p>
+
+                <h4>Categorias de REDs segundo o CIEB:</h4>
+                <div class="tabela-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Macrogrupo</th>
+                                <th>Descrição</th>
+                                <th>Exemplos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Conteúdo Estruturado</b></td>
+                                <td>Recursos que oferecem conteúdo pronto para ensino e aprendizagem.</td>
+                                <td>Jogos educativos, repositórios digitais, plataformas de cursos.</td>
+                            </tr>
+                            <tr>
+                                <td><b>Gestão Pedagógica</b></td>
+                                <td>Ferramentas para planejamento e acompanhamento das práticas pedagógicas.</td>
+                                <td>Sistemas de gestão de sala de aula, ferramentas de avaliação.</td>
+                            </tr>
+                            <tr>
+                                <td><b>Gestão Administrativa</b></td>
+                                <td>Soluções voltadas para a gestão escolar e financeira.</td>
+                                <td>Sistemas de matrícula, plataformas administrativas.</td>
+                            </tr>
+                            <tr>
+                                <td><b>Autoria e Colaboração</b></td>
+                                <td>Ferramentas que promovem criação coletiva e produção de conteúdo.</td>
+                                <td>Google Docs, Canva, Padlet, etc.</td>
+                            </tr>
+                            <tr>
+                                <td><b>Espaços de Aprendizagem</b></td>
+                                <td>Ambientes em que o ensino ocorre digitalmente.</td>
+                                <td>AVAs, plataformas adaptativas, ambientes gamificados.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Essa categorização ajuda a <b>visualizar a amplitude</b> dos REDs e suas aplicações em diferentes contextos escolares.</p>
+            </div>
+        </section>
+
+        <section id="tutor" class="secao-conteudo">
+            <div class="container">
+                <h2>3. O Papel do Tutor</h2>
+                <p>O tutor é o <b>elo entre o conteúdo e os cursistas</b>. Seu papel não é apenas técnico, mas também <b>pedagógico e motivacional</b>. Ele precisa:</p>
+                <ul>
+                    <li>Garantir que todos os cursistas compreendam os <b>objetivos e produtos esperados</b> da atividade.</li>
+                    <li>Promover <b>acolhimento e engajamento</b> desde o início do encontro.</li>
+                    <li>Gerenciar o tempo e garantir que as etapas da atividade sejam cumpridas.</li>
+                    <li>Incentivar <b>reflexão crítica</b> e <b>colaboração</b> entre os grupos.</li>
+                </ul>
+
+                <h4>Sugestões práticas de condução:</h4>
+                <ul>
+                    <li>Inicie o encontro com <b>acolhimento sonoro ou visual</b> (música leve, mensagens de boas-vindas).</li>
+                    <li>Verifique se há novos participantes e explique brevemente o uso das ferramentas (chat, microfone, etc.).</li>
+                    <li>Faça uma <b>retomada das atividades anteriores</b> para reforçar a continuidade entre as disciplinas.</li>
+                    <li>Explique o <b>propósito da atividade atual</b> de forma clara e motivadora.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="metodologia" class="secao-conteudo">
+            <div class="container">
+                <h2>4. Etapas da Metodologia da Jornada de REDs</h2>
+                <p>A <b>Jornada de Recursos Educacionais Digitais (CIEB)</b> é composta por cinco etapas:</p>
+                <div class="tabela-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Etapa</th>
+                                <th>Descrição</th>
+                                <th>Resultado Esperado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>1. Levantamento de Demandas</b></td>
+                                <td>Identificar necessidades da rede em relação aos REDs.</td>
+                                <td>Lista de prioridades e necessidades.</td>
+                            </tr>
+                            <tr>
+                                <td><b>2. Curadoria</b></td>
+                                <td>Selecionar os melhores recursos disponíveis.</td>
+                                <td>Catálogo de REDs recomendados.</td>
+                            </tr>
+                            <tr>
+                                <td><b>3. Implementação</b></td>
+                                <td>Organizar e ofertar os recursos escolhidos.</td>
+                                <td>REDs integrados ao contexto da rede.</td>
+                            </tr>
+                            <tr>
+                                <td><b>4. Monitoramento</b></td>
+                                <td>Acompanhar o uso e a efetividade dos REDs.</td>
+                                <td>Indicadores de engajamento e uso.</td>
+                            </tr>
+                            <tr>
+                                <td><b>5. Avaliação</b></td>
+                                <td>Avaliar impacto pedagógico e administrativo.</td>
+                                <td>Relatório de avaliação e melhorias.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Durante a Atividade Síncrona 5, os cursistas se concentram na <b>etapa 1: Levantamento de Demandas</b>.</p>
+            </div>
+        </section>
+
+        <section id="dinamica" class="secao-conteudo">
+            <div class="container">
+                <h2>5. Dinâmica da Atividade Síncrona</h2>
+                
+                <h3>Parte 1 – Introdução e Contexto (20 min)</h3>
+                <p>O tutor apresenta:</p>
+                <ul>
+                    <li>Os <b>objetivos da atividade</b>;</li>
+                    <li>O conceito e os <b>macrogrupos de REDs</b>;</li>
+                    <li>A diferença entre levantamento <b>centralizado</b> (feito pela Secretaria) e <b>descentralizado</b> (feito pelas escolas).</li>
+                </ul>
+                <p><b>Dica:</b> enfatize a importância da escuta das escolas, pois ela legitima as decisões e aumenta a adesão.</p>
+
+                <h3>Parte 2 – Trabalho em Grupo (40 min)</h3>
+                <p>Cada grupo escolhe um <b>macrogrupo de REDs</b> e responde ao <b>questionário de levantamento de demandas</b> (modelo centralizado). Eles devem priorizar as necessidades da rede e registrar suas decisões.</p>
+                <p>Durante o trabalho:</p>
+                <ul>
+                    <li>Um membro conduz a discussão (mediador).</li>
+                    <li>Outro faz o registro das respostas.</li>
+                </ul>
+                <p><b>Dica:</b> Reforce que não há respostas certas ou erradas — o foco é <b>compreender a metodologia</b>.</p>
+
+                <h3>Parte 3 – Socialização e Debate (30 min)</h3>
+                <p>Os grupos voltam à sala principal e compartilham:</p>
+                <ul>
+                    <li>O <b>macrogrupo escolhido</b>;</li>
+                    <li>As <b>dificuldades encontradas</b>;</li>
+                    <li>As <b>reflexões sobre o processo de levantamento de demandas</b>.</li>
+                </ul>
+                <h4>Orientações para o tutor:</h4>
+                <ul>
+                    <li>Dê tempo igual para cada grupo (aprox. 5 min cada).</li>
+                    <li>Evite repetições incentivando falas complementares.</li>
+                    <li>Faça anotações para o momento de síntese.</li>
+                </ul>
+
+                <h3>Parte 4 – Síntese e Encerramento (20 min)</h3>
+                <p>Finalize o encontro com um <b>resumo dos principais aprendizados</b>:</p>
+                <ul>
+                    <li>A importância do diagnóstico participativo;</li>
+                    <li>A ampliação do conceito de REDs;</li>
+                    <li>O papel estratégico da Secretaria na gestão dos recursos.</li>
+                </ul>
+                <p>Encaminhe os participantes para o <b>checkout</b>, explicando a tarefa seguinte e prazos.</p>
+            </div>
+        </section>
+
+        <section id="checkout" class="secao-conteudo">
+            <div class="container">
+                <h2>6. Atividade de Checkout: Aplicação Prática</h2>
+                <p>Após o encontro, o cursista deve:</p>
+                <ol>
+                    <li><b>Apresentar a metodologia da jornada de REDs</b> ao seu grupo de trabalho na Secretaria de Educação.</li>
+                    <li><b>Decidir coletivamente</b> se a metodologia será aplicada (imediatamente, futuramente ou não).</li>
+                    <li><b>Preencher o modelo de planejamento</b> com a síntese da discussão e a justificativa.</li>
+                    <li><b>Explorar um recurso digital real</b>, avaliando-o com o <b>instrumento de avaliação de REDs</b>.</li>
+                </ol>
+
+                <h4>Instrumento de Avaliação de REDs</h4>
+                <div class="tabela-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Critério</th>
+                                <th>Questão de análise</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Alinhamento à BNCC</b></td>
+                                <td>O recurso favorece o desenvolvimento das competências previstas?</td>
+                            </tr>
+                            <tr>
+                                <td><b>Adequação ao público-alvo</b></td>
+                                <td>É apropriado para a faixa etária e contexto escolar?</td>
+                            </tr>
+                            <tr>
+                                <td><b>Qualidade do conteúdo</b></td>
+                                <td>É confiável, atualizado e bem estruturado?</td>
+                            </tr>
+                            <tr>
+                                <td><b>Navegabilidade e acessibilidade</b></td>
+                                <td>O design é intuitivo, acessível e responsivo?</td>
+                            </tr>
+                            <tr>
+                                <td><b>Suporte técnico e compatibilidade</b></td>
+                                <td>É viável usar o recurso com a infraestrutura disponível?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Ao final, o cursista deve refletir sobre <b>potencialidades e limitações</b> do instrumento de avaliação.</p>
+            </div>
+        </section>
+
+        <section id="conclusao" class="secao-conteudo">
+            <div class="container">
+                <h2>7. Recomendações Finais ao Tutor</h2>
+                <ul>
+                    <li><b>Incentive o pensamento crítico:</b> destaque que a escolha de REDs deve ser baseada em <b>evidências</b>, não apenas em preferências pessoais.</li>
+                    <li><b>Valorize o processo coletivo:</b> mostre como o envolvimento das escolas fortalece as decisões institucionais.</li>
+                    <li><b>Contextualize sempre:</b> ajude os cursistas a relacionarem a atividade com seus desafios reais.</li>
+                    <li><b>Registre e compartilhe boas práticas:</b> uma boa documentação é essencial para o aprendizado institucional.</li>
+                </ul>
+
+                <h3>8. Conclusão</h3>
+                <p>Esta atividade representa um <b>marco formativo</b> na especialização. Ela introduz os cursistas na <b>gestão estratégica de recursos digitais</b>, unindo teoria, prática e reflexão.</p>
+                <p>Ao conduzir essa atividade, o tutor ajuda a consolidar uma visão sistêmica de inovação pedagógica, onde as decisões são orientadas por dados, metodologias e colaboração.</p>
+                
+                <blockquote>
+                    “Selecionar recursos educacionais digitais é mais do que escolher ferramentas – é desenhar caminhos de aprendizagem.”
+                </blockquote>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="rodape-principal">
+        <p>Esta página foi formatada por uma IA com base em um texto enviado pelo usuário.</p>
+        <p id="data-geracao"></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Configuração do Rodapé com Data ---
+            const dataElement = document.getElementById('data-geracao');
+            if (dataElement) {
+                const hoje = new Date();
+                const opcoes = { year: 'numeric', month: 'long', day: 'numeric' };
+                dataElement.textContent = `Página gerada em: ${hoje.toLocaleDateString('pt-BR', opcoes)}.`;
+            }
+
+            // --- Scrollspy (Navegação Ativa) ---
+            const secoes = document.querySelectorAll('section.secao-conteudo');
+            const navLinks = document.querySelectorAll('nav.navegacao-principal a.nav-link');
+            const headerOffset = 80; // Altura do header + um pouco de margem
+
+            function ativarLinkMenu() {
+                let index = secoes.length;
+
+                while(--index && window.scrollY + headerOffset < secoes[index].offsetTop) {}
+                
+                navLinks.forEach((link) => link.classList.remove('active'));
+                
+                // Verifica se o link correspondente existe antes de adicionar a classe
+                if (navLinks[index]) {
+                    navLinks[index].classList.add('active');
+                }
+            }
+
+            ativarLinkMenu(); // Ativa na carga da página
+            window.addEventListener('scroll', ativarLinkMenu); // Ativa ao rolar
+
+            // --- Animação de Entrada (Fade-in) ---
+            const observerOptions = {
+                root: null, // relativo ao viewport
+                rootMargin: '0px',
+                threshold: 0.1 // 10% da seção visível
+            };
+
+            function observerCallback(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Anima apenas uma vez
+                    }
+                });
+            }
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+            secoes.forEach(section => {
+                observer.observe(section);
+            });
+
+        });
+    </script>
+
+</body>
+</html>
+```
